@@ -1,7 +1,7 @@
 # Implied Volatility Smile Spillovers
-### Bachelor Thesis — University of Amsterdam
+### Preliminary Research for Bachelor Thesis — University of Amsterdam
 **Author:** Başar Hacımustafaoğlu  
-**Student Number:** 14866196  
+**Student Number:** 1******6  
 **Program:** BSc Economics and Business Economics (Finance)  
 **Course:** 6013B0520Y — Bachelor Thesis Finance  
 **Academic Year:** 2025/26, Semester 2  
@@ -57,7 +57,7 @@ The empirical strategy exploits the institutional time-zone lead–lag between t
 | CRSP Sample (crspsamp_all) | CRSP / WRDS | US equity prices | Sample access |
 | Penn World Tables (pwt_all) | PWT / WRDS | Macro / international | Full access |
 
-> **Note:** Full OptionMetrics access (optionm_all, optionm_europe) is pending confirmation from UvA library services. All analysis in this repository currently uses sample data for structural exploration only.
+> **Note:** Full OptionMetrics access (optionm_all, optionm_europe) is pending confirmation from WRDS library services. All analysis in this repository currently uses sample data for structural **exploration** only.
 
 ---
 
