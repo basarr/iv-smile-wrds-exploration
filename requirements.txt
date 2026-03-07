@@ -1,0 +1,24 @@
+# ============================================================
+# requirements.txt — IV Smile Spillovers Thesis
+# ============================================================
+# Install with: pip install -r requirements.txt
+
+# WRDS official Python package
+wrds>=3.1.2
+
+# Core data
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Environment variables (for WRDS credentials)
+python-dotenv>=1.0.0
+
+# Jupyter
+jupyter>=1.0.0
+notebook>=7.0.0
+
+# Visualization (inspection only at this stage)
+matplotlib>=3.7.0
+
+# Utilities
+tqdm>=4.65.0

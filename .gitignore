@@ -1,0 +1,47 @@
+# ============================================================
+# .gitignore — IV Smile Spillovers Thesis
+# ============================================================
+
+# --- Data (NEVER commit raw or processed data) ---
+data/raw/*
+data/intermediate/*
+data/analysis_ready/*
+data/outputs/*
+
+# Keep folder structure in repo
+!data/raw/.gitkeep
+!data/intermediate/.gitkeep
+!data/analysis_ready/.gitkeep
+!data/outputs/.gitkeep
+
+# --- WRDS credentials (NEVER commit) ---
+.env
+wrds_credentials.txt
+*.credentials
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# --- Logs ---
+logs/*.log
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- IDE ---
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
