@@ -12,7 +12,7 @@ import wrds
 import pandas as pd
 from dotenv import load_dotenv
 
-# Load credentials from .env file
+
 load_dotenv()
 
 
