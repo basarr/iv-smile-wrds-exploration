@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Author** | Başar Hacımustafaoğlu |
-| **Student Number** | 1486619\* |
+| **Student Number** | 1******6 |
 | **Programme** | BSc Economics and Business Economics (Finance) |
 | **Course** | 6013B0520Y — Bachelor Thesis Finance |
 | **Topic Code** | AP-33 — Implied Volatility Smile Spillovers |
