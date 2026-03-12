@@ -1,0 +1,26 @@
+[
+  {
+    "step": "3b",
+    "table": "surface",
+    "before": 2860,
+    "after": 2860,
+    "dropped": 0,
+    "reason": "keep securityid=500096.0 only"
+  },
+  {
+    "step": "3c",
+    "table": "surface",
+    "before": 2860,
+    "after": 2860,
+    "dropped": 0,
+    "reason": "drop IV sentinel -99 (inversion failure)"
+  },
+  {
+    "step": "3d",
+    "table": "surface",
+    "before": 2860,
+    "after": 2860,
+    "dropped": 0,
+    "reason": "drop IV <= 0 (economically invalid)"
+  }
+]
