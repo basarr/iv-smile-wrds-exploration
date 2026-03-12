@@ -72,12 +72,14 @@ The following references constitute the anchor literature for this thesis, as sp
 │   ├── analysis_ready/             # Final merged dataset (not yet built).
 │   └── outputs/                    # Tables, figures, regression results.
 │
-├── notebooks/                      # Jupyter notebooks — must be run in order.
-│   ├── 00_wrds_setup_test.ipynb    # WRDS connection and subscription audit
-│   ├── 01_data_pull_inspect.ipynb  # Full database inspection and pull log
-│   ├── 02_window_pulls.ipynb       # Targeted sample pulls for both markets
-│   ├── 03a_pipeline_eu_2013.ipynb  # EU smile pipeline (Adidas options)
-│   └── 03b_pipeline_us_2014.ipynb  # US smile pipeline (Apple options)
+├── notebooks/                     # Jupyter notebooks — must be run in order.
+│   ├── 00_wrds_setup_test.ipynb   # WRDS connection and subscription audit      ✅
+│   ├── 01_data_pull_inspect.ipynb # Full database inspection and pull log       ✅
+│   ├── 02_window_pulls.ipynb      # Targeted sample pulls for both markets      ✅
+|   ├── 03a_pipeline_eu_2013.ipynb # EU smile pipeline (Adidas options)          ✅
+|   ├── 03b_pipeline_us_2014.ipynb # US smile pipeline (Apple options)           ✅
+|   ├── 04_merge_align.ipynb       # Merge EU + US panels, build lag structure   🔲
+|   └── 05_regression.ipynb        # Spillover regression analysis               🔲
 │
 ├── logs/                           # Timestamped query logs and validation reports
 │
