@@ -95,7 +95,7 @@ $$n = \left\lfloor 4\left(\frac{T}{100}\right)^{2/9} \right\rfloor$$
 
 _Note that $n$ is an intermediate input used only to estimate $\hat{\gamma}$ — it is **not** the final bandwidth. When residuals are highly autocorrelated, Newey and West (1994)
 recommend a VAR(1) prewhitening step prior to bandwidth selection, which their Monte Carlo evidence shows reduces over-rejection in hypothesis tests._
----
+---**
 
 ## What Was Actually Built
 
