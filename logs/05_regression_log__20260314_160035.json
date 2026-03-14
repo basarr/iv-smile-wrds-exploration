@@ -29,6 +29,11 @@
     },
     "step4_primary_regressions": {
       "node": 30,
+      "specification": "Y_EU_{t+1} = a + b1*Y_US_t + b2*dVIX_t + b3*Y_EU_t + e",
+      "se_method": "Newey-West HAC, Bartlett kernel",
+      "nw_formula": "floor(4*(T/100)^(2/9))",
+      "nw_source": "Newey & West (1994), RES 61(4), Table II Panel C line 6",
+      "use_correction": false,
       "results": {
         "atm_iv": null,
         "skew": null,
@@ -36,29 +41,48 @@
       }
     },
     "step5_robustness": {
-      "60": {
-        "atm_iv": null,
-        "skew": null,
-        "curvature": null
-      },
-      "91": {
-        "atm_iv": null,
-        "skew": null,
-        "curvature": null
-      },
-      "182": {
-        "atm_iv": null,
-        "skew": null,
-        "curvature": null
-      },
-      "365": {
-        "atm_iv": null,
-        "skew": null,
-        "curvature": null
+      "nodes": [
+        "60",
+        "91",
+        "182",
+        "365"
+      ],
+      "specification": "Y_EU_{t+1} = a + b1*Y_US_t + b2*dVIX_t + b3*Y_EU_t + e",
+      "se_method": "Newey-West HAC, Bartlett kernel",
+      "nw_formula": "floor(4*(T/100)^(2/9)) \u2014 recomputed per node",
+      "nw_source": "Newey & West (1994), RES 61(4), Table II Panel C line 6",
+      "results": {
+        "60": {
+          "atm_iv": null,
+          "skew": null,
+          "curvature": null
+        },
+        "91": {
+          "atm_iv": null,
+          "skew": null,
+          "curvature": null
+        },
+        "182": {
+          "atm_iv": null,
+          "skew": null,
+          "curvature": null
+        },
+        "365": {
+          "atm_iv": null,
+          "skew": null,
+          "curvature": null
+        }
       }
     },
     "step6_diagnostics": {
-      "figures_saved_to": "../data/outputs/figures/"
+      "node": 30,
+      "plots_per_model": [
+        "residuals_over_time",
+        "residual_histogram"
+      ],
+      "figures_saved_to": "../data/outputs/figures/",
+      "figures": [],
+      "note": "Diagnostic only. No regression outputs modified. Residual pattern or DW far from 2.0 \u2192 consider increasing NW lags as robustness check."
     },
     "step1_load": {
       "file": "../data/analysis_ready/panel_merged__20260314_155525.csv",
@@ -81,6 +105,22 @@
         547.0,
         730.0
       ]
+    },
+    "step7_timeseries_plots": {
+      "node": 30,
+      "figure": "../data/outputs/figures/smile_params_timeseries__20260314_160035.png",
+      "eu_series": [
+        "eu_atm_iv",
+        "eu_skew",
+        "eu_curvature"
+      ],
+      "us_series": [
+        "us_atm_iv",
+        "us_skew",
+        "us_curvature"
+      ],
+      "x_axis": "date_eu (EU observation date = t+1)",
+      "note": "US series plotted at t+1 date for visual alignment with EU series. The actual US observation is on day t (one trading day prior)."
     }
   },
   "output_file": "../data/outputs/regression_results__20260314_160035.csv",
