@@ -1,0 +1,88 @@
+{
+  "notebook": "05_regression",
+  "run_timestamp": "20260314_160035",
+  "primary_node": 30,
+  "robustness_nodes": [
+    60,
+    91,
+    182,
+    365
+  ],
+  "parameters": [
+    "atm_iv",
+    "skew",
+    "curvature"
+  ],
+  "steps": {
+    "step2_variables": {
+      "primary_node_obs": 9,
+      "robustness_nodes_obs": {
+        "60": 9,
+        "91": 9,
+        "182": 9,
+        "365": 9
+      }
+    },
+    "step3_diagnostics": {
+      "adf_results": {},
+      "unit_root_flags": []
+    },
+    "step4_primary_regressions": {
+      "node": 30,
+      "results": {
+        "atm_iv": null,
+        "skew": null,
+        "curvature": null
+      }
+    },
+    "step5_robustness": {
+      "60": {
+        "atm_iv": null,
+        "skew": null,
+        "curvature": null
+      },
+      "91": {
+        "atm_iv": null,
+        "skew": null,
+        "curvature": null
+      },
+      "182": {
+        "atm_iv": null,
+        "skew": null,
+        "curvature": null
+      },
+      "365": {
+        "atm_iv": null,
+        "skew": null,
+        "curvature": null
+      }
+    },
+    "step6_diagnostics": {
+      "figures_saved_to": "../data/outputs/figures/"
+    },
+    "step1_load": {
+      "file": "../data/analysis_ready/panel_merged__20260314_155525.csv",
+      "shape": [
+        100,
+        29
+      ],
+      "date_min": "2013-03-04",
+      "date_max": "2013-03-15",
+      "n_dates": 10,
+      "nodes": [
+        30.0,
+        60.0,
+        91.0,
+        122.0,
+        152.0,
+        182.0,
+        273.0,
+        365.0,
+        547.0,
+        730.0
+      ]
+    }
+  },
+  "output_file": "../data/outputs/regression_results__20260314_160035.csv",
+  "status": "complete"
+}

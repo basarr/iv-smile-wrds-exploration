@@ -1,0 +1,165 @@
+{
+  "notebook": "04_merge_align",
+  "run_timestamp": "20260314_155525",
+  "steps": {
+    "step1_load": {
+      "eu_file": "../data/intermediate/eu2013_analysis_ready__20260314_142531.csv",
+      "eu_shape": [
+        110,
+        21
+      ],
+      "eu_date_min": "2013-03-01",
+      "eu_date_max": "2013-03-15",
+      "us_file": "../data/intermediate/us2014_analysis_ready__20260314_142601.csv",
+      "us_shape": [
+        100,
+        20
+      ],
+      "us_date_min": "2014-03-03",
+      "us_date_max": "2014-03-14"
+    },
+    "step2_schema": {
+      "eu_columns": [
+        "date",
+        "days",
+        "atm_iv",
+        "skew",
+        "curvature",
+        "put25_iv",
+        "call75_iv",
+        "us_rf_rate",
+        "us_yield_1y",
+        "us_yield_10y",
+        "us_term_spread",
+        "us_hy_spread",
+        "sp500_ret",
+        "sp500_idx",
+        "ff_mktrf",
+        "ff_smb",
+        "ff_hml",
+        "ff_rf",
+        "vix",
+        "eurusd",
+        "hist_vol_30d"
+      ],
+      "us_columns": [
+        "date",
+        "days",
+        "atm_iv",
+        "skew",
+        "curvature",
+        "put25_iv",
+        "call75_iv",
+        "us_rf_rate",
+        "us_yield_1y",
+        "us_yield_10y",
+        "us_term_spread",
+        "us_hy_spread",
+        "sp500_ret",
+        "sp500_idx",
+        "ff_mktrf",
+        "ff_smb",
+        "ff_hml",
+        "ff_rf",
+        "vix",
+        "eurusd"
+      ],
+      "eu_maturity_nodes": [
+        30.0,
+        60.0,
+        91.0,
+        122.0,
+        152.0,
+        182.0,
+        273.0,
+        365.0,
+        547.0,
+        730.0
+      ],
+      "us_maturity_nodes": [
+        30.0,
+        60.0,
+        91.0,
+        122.0,
+        152.0,
+        182.0,
+        273.0,
+        365.0,
+        547.0,
+        730.0
+      ],
+      "nodes_identical": true
+    },
+    "step3_overlap": {
+      "n_eu_dates": 11,
+      "n_us_dates": 10,
+      "n_overlapping_dates": 0,
+      "overlap_warning": true
+    },
+    "step4_lag": {
+      "trading_calendar_length": 21,
+      "us_rows_dropped_last_date": 10,
+      "lag_convention": "US date t -> EU date t+1 (next trading day)"
+    },
+    "step5_merge": {
+      "merged_rows": 0,
+      "merged_cols": 40,
+      "merge_key": [
+        "date_eu",
+        "days"
+      ],
+      "join_type": "inner",
+      "zero_rows_expected": true
+    },
+    "step6_validation": {
+      "n_rows": 0,
+      "n_cols": 40,
+      "columns": [
+        "date_eu",
+        "days",
+        "eu_atm_iv",
+        "eu_skew",
+        "eu_curvature",
+        "eu_put25_iv",
+        "eu_call75_iv",
+        "eu_us_rf_rate",
+        "eu_us_yield_1y",
+        "eu_us_yield_10y",
+        "eu_us_term_spread",
+        "eu_us_hy_spread",
+        "eu_sp500_ret",
+        "eu_sp500_idx",
+        "eu_ff_mktrf",
+        "eu_ff_smb",
+        "eu_ff_hml",
+        "eu_ff_rf",
+        "eu_vix",
+        "eu_eurusd",
+        "eu_hist_vol_30d",
+        "date",
+        "us_atm_iv",
+        "us_skew",
+        "us_curvature",
+        "us_put25_iv",
+        "us_call75_iv",
+        "us_us_rf_rate",
+        "us_us_yield_1y",
+        "us_us_yield_10y",
+        "us_us_term_spread",
+        "us_us_hy_spread",
+        "us_sp500_ret",
+        "us_sp500_idx",
+        "us_ff_mktrf",
+        "us_ff_smb",
+        "us_ff_hml",
+        "us_ff_rf",
+        "us_vix",
+        "us_eurusd"
+      ],
+      "validation_note": "full validation skipped (zero rows)"
+    }
+  },
+  "output_file": "../data/analysis_ready/panel_merged__20260314_155525.csv",
+  "status": "complete",
+  "zero_rows_note": "Merged panel has zero rows because EU (2013) and US (2014) sample windows do not overlap. This is expected. The merge logic is correct. Re-run this notebook with overlapping data to produce a populated analysis-ready file."
+}
