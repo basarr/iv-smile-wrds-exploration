@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Author** | Başar Hacımustafaoğlu |
-| **Student Number** | 14866196 |
+| **Student Number** | 1******6 |
 | **Programme** | BSc Economics and Business Economics (Finance) |
 | **Course** | 6013B0520Y — Bachelor Thesis Finance |
 | **Topic Code** | AP-33 — Implied Volatility Smile Spillovers |
@@ -51,17 +51,52 @@ This project is grounded in a specific set of papers. They are worth understandi
 Malz proposed using options at fixed delta strikes (25Δ, 50Δ, 75Δ) to measure risk reversals and butterfly spreads in currency options markets. This project adapts the exact same parameterisation to equity options: skew = −risk reversal, curvature = 2 × butterfly spread. The sign and scale differences from Malz's original notation are documented explicitly in the code.
 
 **Tompkins (2001) — cross-market smile comparison**
-Tompkins studied implied volatility surfaces across multiple markets (equity, bonds, currencies, energy) and asked whether smiles show consistent patterns across markets and time. The key methodological contribution for this project is his use of *standardised* maturity and delta nodes to make smiles comparable — exactly what the delta-based Malz approach achieves. Tompkins also provided early evidence of commonality in smile shapes across markets, which is the empirical prior motivating the spillover hypothesis here.
+Tompkins (2001) examines implied volatility surfaces across 16 options markets on financial futures, covering four asset classes: stock indices, bonds, currencies, and 3-month deposit futures. Sample periods run from the mid-1980s to end-1996.
+
+The core methodological contribution is a two-step standardisation that makes smiles comparable across markets and time. Implied volatilities are expressed as ratios to the ATM implied volatility (the Volatility Smile Index, VSI), removing level effects. Strike prices are re-expressed as:
+
+$$x_\tau = \frac{\ln(X_\tau / F_\tau)}{\sigma\sqrt{\tau/365}}$$
+
+placing them in standard deviation units — roughly analogous to the $d_2$ term in Black-Scholes. He then fits a third-degree Taylor polynomial in standardised strike and
+time-to-expiration to the VSI, augmented with shock dummies and ATM volatility level, estimated with Newey-West (1987) standard errors. Adjusted $R^2$ ranges from 0.81 to 0.97 across markets.
+
+The central finding is that standardised smile shapes are consistent within asset classes and stable over time, and hold out-of-sample. For stock index markets, the negative skew
+is largely attributable to post-crash dummies rather than the baseline polynomial — consistent with Rubinstein (1994). This cross-market regularity is the empirical prior
+motivating the spillover hypothesis.
 
 **Chen, Han, Ryu and Tang (2022) — the direct motivation**
-This is the most direct ancestor of this project. Chen et al. built a network model of implied volatility spillovers across 18 global index option markets and found significant directional transmission — particularly from the US (VIX) outward. The US → Europe direction was one of the strongest links in their network. This project attempts a simplified version of the same question: one US stock, one EU stock, one regression, three smile parameters. Their paper also motivated the inclusion of ΔVIX as a control variable, since it captures the global volatility shock component that would confound a purely bilateral regression.
+This is the most direct ancestor of this project. Chen et al. studied implied volatility smile contagion and spillovers across 25 global index option markets (January 2005 – November 2017) 
+using a directed acyclic graph (DAG) and spillover index framework. Their DAG analysis  confirmed that the US options market consistently triggers implied volatility contagion in other 
+markets, particularly within the Euro-American cluster — though the reach is selective (the US transmits directly to Switzerland, the UK, Italy, and Canada, but not to France or Denmark in their sample). They also found that spillover effects intensify during crisis periods.
+
+One methodological difference worth noting: Chen et al. parameterise the smile by fitting a quadratic regression of IV on moneyness each day (IV = b₀ + b₁×M + b₂×M²), using near-month 
+contracts at four moneyness levels from Bloomberg. Their primary variable is b₁, the slope. This project instead reads off fixed delta nodes from the OptionMetrics surface following Malz (1997). Both approaches produce a level, slope, and curvature measure, but they are not identical.
+
+Their paper directly motivated two design choices here: the inclusion of ΔVIX as a control variable (Chen et al. use VIX explicitly as a control for global risk factors in their directed 
+spillover regressions), and the focus on the US → EU directional hypothesis.
 
 **Peña, Rubio and Serna (1999) — smile determinants**
-Peña et al. studied why the volatility smile exists and what macroeconomic variables drive its shape in the Spanish market. This paper is in the AP-33 starting literature and shaped the thinking around control variables: interest rate differentials, trading volume, and market-wide fear proxies all matter for the smile level, not just the lagged value of the smile itself. ΔVIX in our specification is a direct response to this insight.
+Peña et al. asked a simple but underexplored question: what actually drives the shape of the volatility smile over time? Using IBEX-35 index options (January 1994 – April 1996), they regressed three daily smile coefficients — level, slope, and curvature — on a set of market variables. Their main finding: transaction costs, measured by the bid-ask spread, are 
+the dominant driver of smile curvature, with bidirectional Granger causality confirmed (BA → curvature: F(3) = 3.49, p = 0.017). Historical volatility and market momentum also matter, but only in simple regressions — not in the causality tests. This paper shaped the general idea that the smile is not just a static Black-Scholes artefact but responds to measurable market conditions day-to-day, which is the empirical prior behind including control variables in the spillover regression at all. The specific choice of ΔVIX as a control in this project comes from Chen et al. (2022), not from Peña et al.
 
 **Newey and West (1994) — the standard error correction**
-Implied volatility smile parameters are persistent time series — today's smile predicts tomorrow's smile. This means OLS residuals in any regression involving smile parameters will be autocorrelated, and standard OLS standard errors will be too small (giving spuriously significant t-statistics). Newey and West (1994) proposed an automatic procedure for selecting how many lags of autocorrelation to correct for, using the formula n = ⌊4(T/100)^(2/9)⌋ for the Bartlett kernel. This is implemented exactly in the regression notebook.
+Newey and West (1994) propose an automatic procedure for selecting the bandwidth of a heteroskedasticity and autocorrelation consistent (HAC) variance-covariance matrix estimator. The estimator takes the form:
 
+$$\bar{S} = \hat{\Omega}_0 + \sum_{j=1}^{m} \left(1 - \frac{j}{m+1}\right)\left(\hat{\Omega}_j + \hat{\Omega}_j'\right)$$
+
+where $m$ is a data-dependent bandwidth chosen to minimise the asymptotic mean squared error (MSE) of the estimator. For the Bartlett kernel, the MSE-optimal bandwidth takes the form:
+
+$$\hat{m} = \left\lfloor \hat{\gamma} \cdot T^{1/3} \right\rfloor, \qquad
+\hat{\gamma} = 1.1447 \left(\frac{\hat{s}^{(1)}}{\hat{s}^{(0)}}\right)^{2/3}$$
+
+where $\hat{s}^{(0)}$ and $\hat{s}^{(1)}$ are estimated from the data using a preliminary lag selection parameter:
+
+$$n = \left\lfloor 4\left(\frac{T}{100}\right)^{2/9} \right\rfloor$$
+
+Note that $n$ is an intermediate input used only to estimate $\hat{\gamma}$ — it is **not**
+the final bandwidth. When residuals are highly autocorrelated, Newey and West (1994)
+recommend a VAR(1) prewhitening step prior to bandwidth selection, which their Monte Carlo
+evidence shows reduces over-rejection in hypothesis tests.
 ---
 
 ## What Was Actually Built
