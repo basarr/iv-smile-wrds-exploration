@@ -156,7 +156,7 @@ This happened because of a data access constraint. The full OptionMetrics subscr
 
 ---
 
-## Limitations — Full Accounting
+## Limitations
 
 This section is important. The limitations here are structural, not incidental.
 
